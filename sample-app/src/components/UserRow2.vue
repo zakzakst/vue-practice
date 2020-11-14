@@ -37,7 +37,7 @@ export default defineComponent({
       nextTick(() => {
         editNickname.value.focus();
       });
-    }
+    };
 
     return {
       editable,
