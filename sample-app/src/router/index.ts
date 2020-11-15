@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import editComponent from "../views/Edit.vue";
+import editComponent3 from "../views/Edit3.vue";
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,11 @@ const routes: Array<RouteConfig> = [
     path: "/edit",
     name: "Edit",
     component: editComponent
+  },
+  {
+    path: "/edit3",
+    name: "Edit3",
+    component: editComponent3
   }
 ];
 
