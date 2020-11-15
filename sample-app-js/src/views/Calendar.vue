@@ -1,11 +1,20 @@
 <template>
   <div>
-    <h1>カレンダー</h1>
+    <h1>カレンダー[{{ type.hoge }}]</h1>
   </div>
 </template>
 
 <script>
 import { defineComponent } from '@vue/composition-api';
 
-export default defineComponent({});
+export default defineComponent({
+  props: {
+    type: {
+      required: true,
+      validator: value => {
+        return ['month', 'weed', 'day'].includes(value);
+      },
+    },
+  },
+});
 </script>
