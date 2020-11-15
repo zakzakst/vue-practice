@@ -5,6 +5,8 @@
     }
   ],
   "settings": {
+    // 設定：拡張機能の推奨表示をしない
+    "extensions.ignoreRecommendations": false,
     "files.exclude": {
       ".nuxt": true,
       "dist": true,
