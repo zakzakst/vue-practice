@@ -285,6 +285,7 @@ import {
   computed,
   nextTick,
   toRefs,
+  onUpdated,
 } from '@vue/composition-api';
 import {
   parseDate,
@@ -303,7 +304,7 @@ export default defineComponent({
       type: String,
       required: true,
       validator: value => {
-        return ['month', 'weed', 'day'].includes(value);
+        return ['month', 'week', 'day'].includes(value);
       },
     },
   },
@@ -385,6 +386,18 @@ export default defineComponent({
       }),
     });
 
+    /**
+     * ライフサイクルフックです。
+     */
+    onUpdated(() => {
+      if (props.type === 'month') {
+        return;
+      }
+      nextTick(() => {
+        state.calendar.scrollToTime('07:00');
+      });
+    });
+
     const methods = {
       // カレンダーを本日の日付に移動します。
       setToday: () => {
@@ -411,7 +424,7 @@ export default defineComponent({
       },
       // カレンダーに表示する月のフォーマットを行います。
       formatMonth: timestamp => {
-        return `${new Date(timestamp.date).getMonth() + 1}`;
+        return `${new Date(timestamp.date).getMonth() + 1} /`;
       },
       // イベント詳細を表示します。
       showEvent: ({ nativeEvent, event }) => {
