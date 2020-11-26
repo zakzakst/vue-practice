@@ -172,23 +172,26 @@ import {
   watch,
   nextTick,
 } from '@vue/composition-api';
-import {
-  profileStore,
-  updateThemeColor,
-  updateUserNameAsync,
-  updateNickname,
-} from '@/store/profile';
+// import {
+//   profileStore,
+//   updateThemeColor,
+//   updateUserNameAsync,
+//   updateNickname,
+// } from '@/store/profile';
 import { validate } from 'vee-validate';
+// import { ValidationItems } from '@/validation/validation-items';
 
 export default defineComponent({
-  setup() {
+  setup(prop, context) {
     const state = reactive({
       userNameValidationObserver: null,
       nicknameValidationObserver: null,
-      profile: profileStore.profile,
+      // profile: profileStore.profile,
+      profile: context.root.$store.getters['profile/profile'],
       newUserName: null,
       newNickname: null,
-      newThemeColor: profileStore.profile.themeColor,
+      // newThemeColor: profileStore.profile.themeColor,
+      newThemeColor: context.root.$store.getters['profile/profile'].themeColor,
       isOpenEditUserNameDialog: false,
       isOpenEditNicknameDialog: false,
       avatarErrors: null,
@@ -199,15 +202,18 @@ export default defineComponent({
           nickname: {
             required: true,
             max: 15,
+            // ...ValidationItems.nickname,
           },
           userName: {
             required: true,
             userNameAllowedCharacters: true,
             max: 15,
+            // ...ValidationItems.userName,
           },
           avatar: {
             ext: ['png', 'jpeg', 'bmp'],
             size: 300,
+            // ...ValidationItems.avatar,
           },
         };
       }),
@@ -244,6 +250,15 @@ export default defineComponent({
         });
       },
     );
+    // テーマカラーを更新するアクションです。
+    const updateThemeColorAction = themeColor =>
+      context.root.$store.dispatch('profile/updateThemeColor', themeColor);
+    // ユーザー名を更新するアクションです。
+    const updateUserNameAction = userName =>
+      context.root.$store.dispatch('profile/updateUserName', userName);
+    // ニックネームを更新するアクションです。
+    const updateNicknameAction = nickname =>
+      context.root.$store.dispatch('profile/updateNickname', nickname);
     /**
      * アバターを保存します。
      * @param file アバターの画像ファイル
@@ -268,7 +283,8 @@ export default defineComponent({
      */
     const saveThemeColor = () => {
       // profileStore.profile.themeColor = state.newThemeColor;
-      updateThemeColor(state.newThemeColor);
+      // updateThemeColor(state.newThemeColor);
+      updateThemeColorAction(state.newThemeColor);
     };
     /**
      * ユーザー名の編集を開始します。
@@ -294,7 +310,8 @@ export default defineComponent({
       // state.isOpenEditUserNameDialog = false;
       try {
         if (state.newUserName) {
-          await updateUserNameAsync(state.newUserName);
+          // await updateUserNameAsync(state.newUserName);
+          await updateUserNameAction(state.newUserName);
         }
         state.isOpenEditUserNameDialog = false;
       } catch (error) {
@@ -320,7 +337,8 @@ export default defineComponent({
     const saveNickname = () => {
       if (state.newNickname) {
         // profileStore.profile.nickname = state.newNickname;
-        updateNickname(state.newNickname);
+        // updateNickname(state.newNickname);
+        updateNicknameAction(state.newNickname);
       }
       state.isOpenEditNicknameDialog = false;
     };

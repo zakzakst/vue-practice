@@ -293,7 +293,7 @@ import {
 } from 'vuetify/lib/components/VCalendar/util/timestamp';
 import { calendarEventStore, add, update } from '@/store/calendar-event';
 import { sharedUserStore, getThemeColor } from '@/store/shared-user';
-import { profileStore } from '@/store/profile';
+// import { profileStore } from '@/store/profile';
 
 export default defineComponent({
   props: {
@@ -384,6 +384,8 @@ export default defineComponent({
       disabledEndTime: computed(() => {
         return !state.endDate || !state.startTime;
       }),
+      // プロフィール情報です。
+      profileState: computed(() => context.root.$store.state.profile.profile),
     });
 
     /**
@@ -473,7 +475,9 @@ export default defineComponent({
       },
       // 自分のイベントではないことを判定します。
       isNotOwner: userId => {
-        return userId !== profileStore.profile.userId;
+        // return userId !== profileStore.profile.userId;
+        // return userId !== context.root.$store.state.profile.profile.userId;
+        return userId !== state.profileState.userId;
       },
       // イベントの編集を開始します。
       startEditEvent: () => {
