@@ -6,6 +6,7 @@ import ProfileComponent from '@/views/Profile.vue';
 import ShareComponent from '@/views/Share.vue';
 import SignInComponent from '@/views/SignIn.vue';
 import { calendarRoutes } from '@/router/calendar/calendar';
+import store from '@/store/index';
 
 Vue.use(VueRouter);
 
@@ -53,6 +54,18 @@ router.afterEach(to => {
     return;
   }
   document.title = to.meta.title;
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.path === '/sign-in') {
+    next();
+    return;
+  }
+  if (store.getters['profile/profile']) {
+    next();
+    return;
+  }
+  next('/sign-in');
 });
 
 export default router;

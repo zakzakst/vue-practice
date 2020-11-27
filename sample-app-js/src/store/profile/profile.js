@@ -1,6 +1,13 @@
 import { update } from '@/store/shared-user';
 import axios from 'axios';
 
+/**
+ * sessionStorageにプロフィール情報を保存します。
+ */
+const setStorage = profile => {
+  sessionStorage.setItem('profile', JSON.stringify(profile));
+};
+
 export const profileModule = {
   namespaced: true,
   state: {
@@ -11,7 +18,16 @@ export const profileModule = {
      * プロフィールを取得します。
      */
     profile(state) {
-      return state.profile;
+      // return state.profile;
+      if (state.profile) {
+        return state.profile;
+      }
+      const profile = sessionStorage.getItem('profile');
+      if (profile) {
+        return JSON.parse(profile);
+      }
+
+      return null;
     },
   },
   mutations: {
@@ -21,6 +37,7 @@ export const profileModule = {
      */
     updateUserName(state, userName) {
       state.profile.userName = userName;
+      setStorage(state.profile);
     },
     /**
      * 新しいニックネームを State に保存します。
@@ -28,6 +45,7 @@ export const profileModule = {
      */
     updateNickname(state, nickname) {
       state.profile.nickname = nickname;
+      setStorage(state.profile);
     },
     /**
      * 新しいテーマカラーを State に保存します。
@@ -35,6 +53,7 @@ export const profileModule = {
      */
     updateThemeColor(state, themeColor) {
       state.profile.themeColor = themeColor;
+      setStorage(state.profile);
     },
     /**
      * プロフィールを State に保存します。
@@ -42,6 +61,7 @@ export const profileModule = {
      */
     saveProfile(state, profile) {
       state.profile = profile;
+      setStorage(state.profile);
     },
     /**
      * State からプロフィールをクリアします。
