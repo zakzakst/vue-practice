@@ -10,6 +10,18 @@ import '@/plugins/vee-validate';
 
 Vue.config.productionTip = false;
 
+// import { myExample } from '@/directives/my-example';
+// Vue.directive('myExample', myExample);
+import * as directives from '@/directives';
+for (const [key, directive] of Object.entries(directives)) {
+  Vue.directive(key, directive);
+}
+
+import * as components from '@/components';
+for (const [key, component] of Object.entries(components)) {
+  Vue.component(key, component);
+}
+
 new Vue({
   router,
   store,
