@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import HomeComponent from '@/views/Home.vue';
+// import HomeComponent from '@/views/Home.vue';
+// import ProfileComponent from '@/views/Profile.vue';
+// import ShareComponent from '@/views/Share.vue';
+// import SignInComponent from '@/views/SignIn.vue';
+
 // import CalendarComponent from '@/views/Calendar.vue';
-import ProfileComponent from '@/views/Profile.vue';
-import ShareComponent from '@/views/Share.vue';
-import SignInComponent from '@/views/SignIn.vue';
 import { calendarRoutes } from '@/router/calendar/calendar';
 import store from '@/store/index';
 
@@ -14,7 +15,8 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeComponent,
+    // component: HomeComponent,
+    component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
     meta: {
       title: 'home',
     },
@@ -29,17 +31,23 @@ const routes = [
   {
     path: '/profile',
     name: 'profile',
-    component: ProfileComponent,
+    // component: ProfileComponent,
+    component: () =>
+      import(/* webpackChunkName: "profile" */ '@/views/Profile.vue'),
   },
   {
     path: '/share',
     name: 'share',
-    component: ShareComponent,
+    // component: ShareComponent,
+    component: () =>
+      import(/* webpackChunkName: "share" */ '@/views/Share.vue'),
   },
   {
     path: '/sign-in',
     name: 'sign-in',
-    component: SignInComponent,
+    // component: SignInComponent,
+    component: () =>
+      import(/* webpackChunkName: "signIn" */ '@/views/SignIn.vue'),
   },
 ];
 
