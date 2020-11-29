@@ -79,7 +79,7 @@ export const profileModule = {
       const data = { userName: userName };
       // eslint-disable-next-line no-useless-catch
       try {
-        await axios.patch('api/profile', data);
+        await axios.patch('api/profile', data, { retryable: true });
         commit('updateUserName', userName);
         update(state.profile);
       } catch (error) {

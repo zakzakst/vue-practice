@@ -171,6 +171,7 @@ import {
   computed,
   watch,
   nextTick,
+  // onErrorCaptured,
 } from '@vue/composition-api';
 // import {
 //   profileStore,
@@ -250,6 +251,12 @@ export default defineComponent({
         });
       },
     );
+    // onErrorCaptured(error => {
+    //   if (error?.response?.status === 422) {
+    //     context.root.$toast(error.response?.data?.title);
+    //   }
+    //   return false;
+    // });
     // テーマカラーを更新するアクションです。
     const updateThemeColorAction = themeColor =>
       context.root.$store.dispatch('profile/updateThemeColor', themeColor);
@@ -316,6 +323,10 @@ export default defineComponent({
         state.isOpenEditUserNameDialog = false;
       } catch (error) {
         console.log('error: ', error.response?.data?.title);
+        // if (error?.response?.status === 422) {
+        //   context.root.$toast(error.response?.data?.title);
+        // }
+        // throw error;
       }
     };
     /**
