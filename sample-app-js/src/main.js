@@ -12,6 +12,7 @@ import '@/plugins/vuetify-dialog';
 import '@/plugins/error-handler';
 
 Vue.config.productionTip = false;
+Vue.config.performance = true;
 
 // import { myExample } from '@/directives/my-example';
 // Vue.directive('myExample', myExample);
