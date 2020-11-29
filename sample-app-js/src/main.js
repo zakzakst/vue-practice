@@ -7,6 +7,9 @@ import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import '@/plugins/composition-api';
 import '@/plugins/vee-validate';
+import '@/plugins/vuetify-toast-snackbar';
+import '@/plugins/vuetify-dialog';
+import '@/plugins/error-handler';
 
 Vue.config.productionTip = false;
 
